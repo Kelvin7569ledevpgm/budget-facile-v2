@@ -18,6 +18,7 @@ import {
   Calendar,
   ChevronRight,
   Sparkles,
+  AlertTriangle,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Select, TextArea } from '@/components/ui';
 import { createClient } from '@/lib/supabase/client';
@@ -132,6 +133,8 @@ export default function SettingsPage() {
   const [savingEmail, setSavingEmail] = useState(false);
   const [savingPw, setSavingPw] = useState(false);
   const [exporting, setExporting] = useState(false);
+  /** Suppression du compte */
+  const [deletingAccount, setDeletingAccount] = useState(false);
   /** Message après enregistrement global des préférences (bouton en-tête). */
   const [prefsBanner, setPrefsBanner] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
 
@@ -518,6 +521,40 @@ export default function SettingsPage() {
       });
     } finally {
       setSavingPw(false);
+    }
+  }
+
+  async function deleteAccount() {
+    if (isDemo) return;
+    if (!userId) {
+      setFeedback({ type: 'err', text: 'Compte non chargé.' });
+      return;
+    }
+
+    const confirmed = window.confirm(
+      'ATTENTION : Cette action est irréversible. Toutes vos transactions, budgets et préférences seront définitivement supprimés.\n\nVoulez-vous vraiment supprimer votre compte ?'
+    );
+
+    if (!confirmed) return;
+
+    setDeletingAccount(true);
+    setFeedback(null);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.rpc('delete_user');
+
+      if (error) throw error;
+
+      // Déconnexion locale et redirection
+      await supabase.auth.signOut();
+      window.location.href = '/';
+    } catch (e) {
+      setFeedback({
+        type: 'err',
+        text: e instanceof Error ? e.message : 'Erreur lors de la suppression du compte.',
+      });
+      setDeletingAccount(false);
     }
   }
 
@@ -1062,6 +1099,31 @@ export default function SettingsPage() {
               <p className="text-caption" style={{ marginTop: 'var(--spacing-lg)' }}>
                 L’authentification à deux facteurs pourra être proposée dans une prochaine version.
               </p>
+
+              <div className={styles.dangerZone}>
+                <h3 className={styles.dangerTitle}>
+                  <AlertTriangle size={18} className={styles.alertTriangle} />
+                  Zone de danger
+                </h3>
+                <p className={styles.dangerDesc}>
+                  La suppression de votre compte est <strong>définitive</strong>. Vous perdrez l'accès à toutes vos données (profil, transactions, catégories, paramètres). Cette action ne peut pas être annulée.
+                </p>
+                <div className={styles.dangerActions}>
+                  <button
+                    type="button"
+                    className={styles.dangerBtn}
+                    disabled={isDemo || deletingAccount}
+                    onClick={deleteAccount}
+                  >
+                    {deletingAccount ? (
+                      <Loader2 size={18} className={styles.spin} />
+                    ) : (
+                      <Trash2 size={18} strokeWidth={2} />
+                    )}
+                    Supprimer définitivement mon compte
+                  </button>
+                </div>
+              </div>
             </Card>
           )}
         </div>
