@@ -6,4 +6,4 @@ For every feature, bug fix, or modification in this project, you MUST follow thi
 2.  **Preview**: Push the branch to GitHub and verify the changes on the **Vercel Preview URL**.
 3.  **Merge**: Only once the user has validated the preview, merge the branch into `main` to update the production site.
 
-**Never push directly to `main` without a preview.**
+**Never push directly to `main` without first verifying a preview deployment.**
