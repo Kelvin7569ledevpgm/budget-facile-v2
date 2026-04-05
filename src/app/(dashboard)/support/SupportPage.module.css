@@ -1,0 +1,55 @@
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+.faqItem {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  background: var(--color-bg);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.faqItem:hover {
+  border-color: var(--color-border-strong);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.faqItem span {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.chatCard {
+  text-align: center;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-elevated);
+}
+
+.chatIcon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--spacing-md);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-muted);
+  color: var(--color-accent);
+}

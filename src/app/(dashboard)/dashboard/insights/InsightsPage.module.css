@@ -1,0 +1,97 @@
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: 1fr;
+}
+
+.gridCompact {
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .gridCompact {
+    gap: var(--spacing-md);
+  }
+}
+
+.chartBox {
+  height: 320px;
+  width: 100%;
+  min-height: 280px;
+  min-width: 0;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.prediction {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  margin-top: var(--spacing-md);
+}
+
+.predictionLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.confidenceBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.confidenceTrack {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.confidenceFill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--color-success);
+}
+
+.tips {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tip {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.tipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}

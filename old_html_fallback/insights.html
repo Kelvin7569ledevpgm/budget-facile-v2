@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyses | BudgetFacile</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Charts (Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="src/css/styles.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --topbar-height: 72px;
+        }
+
+        body {
+            background-color: #fcfcfd;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Common sidebar/topbar */
+        aside { width: var(--sidebar-width); background: white; border-right: 1px solid var(--border-light); display: flex; flex-direction: column; padding: var(--spacing-md); z-index: 100; }
+        .nav-menu { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: var(--radius-md); color: var(--text-muted); font-weight: 500; transition: var(--transition-smooth); text-decoration: none; }
+        .nav-item:hover { background: var(--secondary-bg); color: var(--text-main); }
+        .nav-item.active { background: #f0f7ff; color: var(--accent-blue); }
+        
+        main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        header.topbar { height: var(--topbar-height); background: white; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--spacing-lg); }
+
+        /* Insights View Content */
+        .content { flex: 1; overflow-y: auto; padding: var(--spacing-xl) var(--spacing-lg); }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-card {
+            padding: var(--spacing-lg);
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .main-chart-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+        }
+
+        .side-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .predictive-card {
+            background: #f3f4f6;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .predictive-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .spending-donut-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .color-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside>
+        <div class="sidebar-logo" style="display:flex; align-items:center; gap:12px; font-weight:700;"><i data-lucide="shield-check"></i>AURELIUS</div>
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item">
+                <i data-lucide="layout-grid" size="20"></i>Vue d'ensemble
+            </a>
+            <a href="transactions.html" class="nav-item">
+                <i data-lucide="arrow-left-right" size="20"></i>Transactions
+            </a>
+            <a href="budget.html" class="nav-item">
+                <i data-lucide="wallet" size="20"></i>Budget
+            </a>
+            <a href="insights.html" class="nav-item active">
+                <i data-lucide="trending-up" size="20"></i>Analyses
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i data-lucide="settings" size="20"></i>Paramètres
+            </a>
+        </nav>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <h2 style="font-size: 20px;">Analyses</h2>
+            <div class="topbar-actions">
+                <button class="btn btn-primary" style="padding: 8px 16px;"><i data-lucide="plus" size="18" style="margin-right: 8px;"></i>Ajouter Transaction</button>
+                <img src="https://ui-avatars.com/api/?name=Sam&background=random" style="width:36px; border-radius:50%; margin-left:16px;">
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <p style="color:var(--text-muted); font-size:12px; text-transform:uppercase;">Changement Valeur Nette</p>
+                    <h2 style="font-size:32px; margin:8px 0;">+12.4%</h2>
+                    <p style="color:var(--accent-green); font-size:13px;">+14 200,00 € v.s. trim. préc.</p>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid var(--accent-blue);">
+                    <p style="color:var(--text-muted); font-size:12px; text-transform:uppercase;">Dépenses quotidiennes moy.</p>
+                    <h2 style="font-size:32px; margin:8px 0;">142,50 €</h2>
+                    <p style="color:var(--text-muted); font-size:13px;">-4.2% depuis le mois dernier</p>
+                </div>
+                <div class="stat-card">
+                    <p style="color:var(--text-muted); font-size:12px; text-transform:uppercase;">Taux d'épargne</p>
+                    <h2 style="font-size:32px; margin:8px 0;">32.8%</h2>
+                    <div style="height:4px; width:100%; background:#eee; border-radius:2px; overflow:hidden; margin-top:12px;">
+                        <div style="width:32.8%; height:100%; background:var(--accent-green);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="performance-grid">
+                <div class="main-chart-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+                        <h3>Aperçu de la Performance</h3>
+                        <div class="flex gap-sm">
+                            <button class="btn btn-outline" style="padding:4px 12px; font-size:12px;">Mensuel</button>
+                            <button class="btn btn-primary" style="padding:4px 12px; font-size:12px;">Trimestriel</button>
+                        </div>
+                    </div>
+                    <div style="height:400px;">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="side-cards">
+                    <div class="predictive-card">
+                        <h4 style="margin-bottom:12px;">Perspectives Prédictives</h4>
+                        <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+                            Basé sur la vélocité de vos transactions actuelles, vous êtes projeté pour surpasser votre objectif.
+                        </p>
+                        <div style="margin-top:24px;">
+                            <p style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">RÉALISATION CIBLE</p>
+                            <p style="font-size:24px; font-weight:700; margin-top:4px;">À ce rythme, vous économiserez <span style="color:var(--accent-green);">4 820 €</span> d'ici la fin du mois.</p>
+                        </div>
+                    </div>
+
+                    <div class="spending-donut-card">
+                        <h4 style="margin-bottom:20px;">Dépenses par Catégorie</h4>
+                        <div style="height:150px;">
+                            <canvas id="spendingDonut"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="flex items-center"><div class="color-dot" style="background:#0066ff;"></div> Logement</div>
+                                <span style="font-weight:600;">45%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="flex items-center"><div class="color-dot" style="background:#10b981;"></div> Investissement</div>
+                                <span style="font-weight:600;">25%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="flex items-center"><div class="color-dot" style="background:#ef4444;"></div> Alimentation</div>
+                                <span style="font-weight:600;">15%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="flex items-center"><div class="color-dot" style="background:#9ca3af;"></div> Autre</div>
+                                <span style="font-weight:600;">15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Performance Chart
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        const gradient = perfCtx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(0, 102, 255, 0.2)');
+        gradient.addColorStop(1, 'rgba(0, 102, 255, 0)');
+
+        new Chart(perfCtx, {
+            type: 'line',
+            data: {
+                labels: ['JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUIN'],
+                datasets: [{
+                    label: 'Période Actuelle',
+                    data: [30, 45, 38, 62, 55, 80],
+                    borderColor: '#0066ff',
+                    backgroundColor: gradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }, {
+                    label: 'Période Précédente',
+                    data: [35, 30, 42, 35, 48, 50],
+                    borderColor: '#10b981',
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Spending Donut
+        const spendingCtx = document.getElementById('spendingDonut').getContext('2d');
+        new Chart(spendingCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [45, 25, 15, 15],
+                    backgroundColor: ['#0066ff', '#10b981', '#ef4444', '#9ca3af'],
+                    borderWidth: 0,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetFacile | Votre Richesse, Raffinée</title>
+    <meta name="description" content="Découvrez la nouvelle génération de gestion de patrimoine privée. Simple, intelligent et exclusivement vôtre.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="src/css/styles.css">
+    <style>
+        /* Modern Hero Specifics */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at top center, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(0, 102, 255, 0.05);
+            color: var(--accent-blue);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        .hero-title span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .dashboard-preview {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            border: 8px solid white;
+            background: var(--dark-bg);
+            position: relative;
+        }
+
+        .dashboard-preview img {
+            width: 100%;
+            display: block;
+            opacity: 0.9;
+        }
+
+        /* Nav */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        nav {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AURELIUS</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Fonctionnalités</a></li>
+                    <li><a href="#security">Sécurité</a></li>
+                    <li><a href="#pricing">Tarifs</a></li>
+                </ul>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="btn btn-primary">Tableau de bord</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-badge">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" fill="currentColor"/></svg>
+                    NOUVEAU : ANALYSE DES MARCHÉS IA
+                </div>
+                <h1 class="hero-title">Votre Richesse, <br><span>Raffinée.</span></h1>
+                <p class="hero-subtitle">
+                    Découvrez la nouvelle génération de gestion de patrimoine privée. 
+                    Simple, intelligent et exclusivement vôtre.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary">Rejoindre la liste</button>
+                    <button class="btn btn-outline">Explorer BudgetFacile</button>
+                </div>
+                
+                <div class="dashboard-preview">
+                    <!-- Placeholder representing the dashboard shown in design 0 -->
+                    <div style="height: 500px; background: linear-gradient(135deg, #1a1c24 0%, #0b0f19 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                        <div style="text-align: center;">
+                            <h3 style="font-size: 24px; margin-bottom: 16px;">Aperçu du Tableau de Bord</h3>
+                            <p style="opacity: 0.5;">[Illustration des performances et graphiques en cours...]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections will follow -->
+    </main>
+
+    <script src="src/js/scripts.js"></script>
+</body>
+</html>

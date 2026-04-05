@@ -1,0 +1,149 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal {
+  width: 100%;
+  max-width: 500px;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  height: 4px;
+  background: var(--color-accent-muted);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content {
+  padding: 2.5rem;
+}
+
+.stepHeader {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.stepIcon {
+  width: 48px;
+  height: 48px;
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--color-primary);
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.stepDesc {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  gap: 1rem;
+}
+
+.skipBtn {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.skipBtn:hover {
+  color: var(--color-text-primary);
+}
+
+.nextBtn {
+  background: var(--color-primary);
+  color: #000;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s, opacity 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.nextBtn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.nextBtn:active {
+  transform: translateY(0);
+}
+
+.nextBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  margin-top: -0.5rem;
+}
+
+.successIcon {
+  color: var(--color-success);
+  margin-bottom: 1.5rem;
+}
+
+.finalStep {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
