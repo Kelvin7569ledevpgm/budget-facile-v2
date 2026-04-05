@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
 import { UserPreferencesProvider, useUserPreferences } from '@/contexts/UserPreferencesProvider';
 import OnboardingWizard from '@/components/OnboardingWizard';
@@ -11,10 +12,12 @@ function DashboardShellInner({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { preferences } = useUserPreferences();
   const compact = preferences.compact;
+  const pathname = usePathname();
+  const isDemo = pathname?.startsWith('/demo');
 
   return (
     <div className={styles.shell}>
-      <OnboardingWizard />
+      {!isDemo && <OnboardingWizard />}
       <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       <div className={styles.mainWrap}>
         <header className={styles.mobileBar}>
