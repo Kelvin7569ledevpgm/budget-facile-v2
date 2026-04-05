@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Plus,
-  Wand2,
   Activity,
   ArrowLeftRight,
   Wallet,
@@ -196,10 +195,6 @@ export default function DashboardPage() {
               <Plus size={18} strokeWidth={2} />
               Nouvelle transaction
             </Link>
-            <Button variant="default" size="lg" type="button" className={styles.heroActionBtn}>
-              <Wand2 size={18} strokeWidth={2} />
-              Suggestions
-            </Button>
           </div>
         </Card>
       </div>
